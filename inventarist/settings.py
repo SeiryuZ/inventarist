@@ -128,7 +128,8 @@ INSTALLED_APPS = (
     'south',
 
     # Apps
-    'products',
+    'apps.products',
+    'apps.logs',
 
 
 )
