@@ -7,3 +7,6 @@ class Product(models.Model):
 
     quantity = models.PositiveIntegerField()
     limit = models.PositiveIntegerField()
+
+    def __unicode__(self):
+        return "#%s | %s" % (self.id, self.name)

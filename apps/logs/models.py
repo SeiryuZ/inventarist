@@ -7,11 +7,13 @@ class Log(models.Model):
     product = models.ForeignKey('products.Product', blank=True, null=True, related_name='logs')
 
     ACTION_CHOICES = (
-        ('1', 'Add product'),
-        ('2', 'Edit Product'),
-        ('3', 'Remove Product'),
+        (1, 'Add product'),
+        (2, 'Edit Product'),
+        (3, 'Remove Product'),
     )
     action = models.PositiveIntegerField(choices=ACTION_CHOICES)
+
+    created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         if self.product:
