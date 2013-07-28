@@ -107,10 +107,16 @@ ROOT_URLCONF = 'inventarist.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'inventarist.wsgi.application'
 
+from os import path
+
+SETTINGS_DIR = path.dirname(__file__)
+PROJECT_ROOT = path.dirname(SETTINGS_DIR)
+
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    path.join(PROJECT_ROOT, "templates"),
 )
 
 INSTALLED_APPS = (
