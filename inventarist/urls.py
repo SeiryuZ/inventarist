@@ -12,4 +12,5 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^$', RedirectView.as_view(url='/admin/')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^administration/', include('inventarist.administrations.urls', namespace='administration')),
 )
