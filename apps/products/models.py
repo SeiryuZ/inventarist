@@ -9,4 +9,4 @@ class Product(models.Model):
     limit = models.PositiveIntegerField()
 
     def __unicode__(self):
-        return "#%s | %s" % (self.id, self.name)
+        return "#%s | %s | Jumlah: %s" % (self.id, self.name, self.quantity)

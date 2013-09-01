@@ -14,4 +14,45 @@
             {{ form.as_p }}
             <input type="submit">
         </form>
+        <br>
+        <br>
+
+        Product ini berjumlah <span id="current"> 0 </span>, setelah {% if operation == 'substraction' %} pengurangan {% else %} penambahan {% endif %} akan menjadi <span id="result"> 0 </span>
+
+        <script>
+        $('#id_product_text').focusout(function() {
+            var value = $('#id_product_on_deck > div').html();
+
+            if (value === null || value === undefined)
+                return false;
+
+            var quantity = parseInt(value.split("|")[2].split(":")[1]);
+
+            $('#current, #result').html(quantity);
+        });
+
+        var type = '{{operation}}';
+
+        $('#id_quantity').keyup(function() {
+            var curr = parseInt($('#current').html());
+            var input = parseInt($('#id_quantity').val() || 0);
+
+            var result = 0;
+
+            if (type == 'substraction')
+                result = curr - input;
+            else
+                result = curr + input;
+
+            $('#result').html(result);
+
+        });
+        </script>
+
+{% endblock %}
+
+
+{% block extrahead %}
+
+
 {% endblock %}
