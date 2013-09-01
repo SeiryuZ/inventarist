@@ -13,7 +13,13 @@ def product_operation(request, operation):
             product = form.save()
             product.logs.create(user=request.user, product=product, action=2)
 
-            messages.success(request, "Product has been modified")
+            operation_string = 'dikurangi' if form.operation == 'substraction' else 'ditambah'
+            message_string = "%s dari jumlah %s telah %s %s menjadi %s" % (product.name,
+                                                                           form.quantity_was,
+                                                                           operation_string,
+                                                                           form.operation_quantity,
+                                                                           product.quantity)
+            messages.success(request, message_string)
             return redirect('/administration/product-operation/%s' % operation)
 
         print form.errors

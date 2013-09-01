@@ -17,8 +17,14 @@
         <br>
         <br>
 
-        Product ini berjumlah <span id="current"> 0 </span>, setelah {% if operation == 'substraction' %} pengurangan {% else %} penambahan {% endif %} akan menjadi <span id="result"> 0 </span>
+        <h2 class="note">Product ini berjumlah <strong><span id="current"> 0 </span></strong>, setelah {% if operation == 'substraction' %} pengurangan {% else %} penambahan {% endif %} akan menjadi <strong><span id="result"> 0 </span></strong></h2>
 
+
+        <style>
+            .note strong {
+                font-size: 30px;
+            }
+        </style>
         <script>
         $('#id_product_text').focusout(function() {
             var value = $('#id_product_on_deck > div').html();

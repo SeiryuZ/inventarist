@@ -19,6 +19,8 @@ class OperationProductForm(forms.Form):
             quantity = -1 * quantity
 
         product = self.cleaned_data['product']
+        self.quantity_was = product.quantity
+        self.operation_quantity = quantity
         product.quantity += quantity
         product.save()
         return product
