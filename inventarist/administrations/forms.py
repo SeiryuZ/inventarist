@@ -2,8 +2,6 @@ from django import forms
 
 from ajax_select.fields import AutoCompleteSelectField
 
-from apps.products.models import Product
-
 
 class OperationProductForm(forms.Form):
     product = AutoCompleteSelectField('product')
@@ -12,6 +10,18 @@ class OperationProductForm(forms.Form):
     def __init__(self, operation='addition', *args, **kwargs):
         super(OperationProductForm, self).__init__(*args, **kwargs)
         self.operation = operation
+
+    def clean(self):
+        cleaned_data = super(OperationProductForm, self).clean()
+        product = cleaned_data['product']
+        quantity = cleaned_data['quantity']
+        if self.operation == 'substraction':
+            quantity = -1 * quantity
+
+        if product.quantity + quantity <= 0:
+            raise forms.ValidationError("Hasil akhir tidak boleh dibawah 0")
+
+        return cleaned_data
 
     def save(self, *args, **kwargs):
         quantity = self.cleaned_data['quantity']
