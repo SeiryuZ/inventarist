@@ -99,8 +99,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
 
     # Custom
-    'inventarist.middleware.AdminLocaleURLMiddleware'
+    'inventarist.middleware.AdminLocaleURLMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 )
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'inventarist.urls'
 
@@ -119,6 +122,8 @@ TEMPLATE_DIRS = (
     path.join(PROJECT_ROOT, "templates"),
 )
 
+APPEND_SLASH = False
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -133,6 +138,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'ajax_select',
     'south',
+    'corsheaders',
 
     # Apps
     'apps.products',
