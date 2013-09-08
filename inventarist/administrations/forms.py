@@ -1,6 +1,9 @@
 from django import forms
+from django.contrib.admin import widgets
 
 from ajax_select.fields import AutoCompleteSelectField
+
+from .utils import generate_product_report
 
 
 class OperationProductForm(forms.Form):
@@ -18,7 +21,7 @@ class OperationProductForm(forms.Form):
         if self.operation == 'substraction':
             quantity = -1 * quantity
 
-        if product.quantity + quantity <= 0:
+        if product.quantity + quantity < 0:
             raise forms.ValidationError("Hasil akhir tidak boleh dibawah 0")
 
         return cleaned_data
@@ -34,3 +37,11 @@ class OperationProductForm(forms.Form):
         product.quantity += quantity
         product.save()
         return product
+
+class ProductReportForm(forms.Form):
+    start_date = forms.DateField(widget=widgets.AdminDateWidget(), required=True)
+    end_date = forms.DateField(widget=widgets.AdminDateWidget(), required=True)
+
+
+    def generate_report(self):
+        generate_product_report(self.cleaned_data['start_date'], self.cleaned_data['end_date'])

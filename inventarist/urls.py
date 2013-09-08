@@ -14,6 +14,11 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^$', RedirectView.as_view(url='/admin/')),
     url(r'^api/', include('inventarist.api.urls', namespace='api')),
+
+    # Add this to get widgets.AdminDateWidget() working for non is_staff, is_superuser
+    # This must be placed before (r'^admin/(.*)', admin.site.root), as that gobals up everything
+    (r'^admin/jsi18n/$', 'django.views.i18n.javascript_catalog'),
+
     url(r'^admin/lookups/', include(ajax_select_urls)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^administration/', include('inventarist.administrations.urls', namespace='administration')),
