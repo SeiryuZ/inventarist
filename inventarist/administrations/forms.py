@@ -1,4 +1,6 @@
 from django import forms
+from django.forms.extras.widgets import SelectDateWidget
+from django.contrib.admin import widgets
 
 from ajax_select.fields import AutoCompleteSelectField
 
@@ -34,3 +36,7 @@ class OperationProductForm(forms.Form):
         product.quantity += quantity
         product.save()
         return product
+
+class ProductReportForm(forms.Form):
+    start_date = forms.DateField(widget=widgets.AdminDateWidget())
+    end_date = forms.DateField(widget=widgets.AdminDateWidget())

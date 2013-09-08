@@ -2,7 +2,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
-from .forms import OperationProductForm
+from .forms import OperationProductForm, ProductReportForm
 
 
 @staff_member_required
@@ -28,3 +28,13 @@ def product_operation(request, operation):
         'operation': operation
     }
     return render(request, 'admin/product_operation.html', context)
+
+@staff_member_required
+def product_report(request):
+  form = ProductReportForm(data=request.POST or None)
+
+
+  context = {
+    'form': form
+  }
+  return render(request, 'admin/product_report.html', context)
