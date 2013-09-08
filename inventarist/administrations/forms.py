@@ -18,7 +18,7 @@ class OperationProductForm(forms.Form):
         if self.operation == 'substraction':
             quantity = -1 * quantity
 
-        if product.quantity + quantity <= 0:
+        if product.quantity + quantity < 0:
             raise forms.ValidationError("Hasil akhir tidak boleh dibawah 0")
 
         return cleaned_data
