@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect
 
 from .forms import OperationProductForm, ProductReportForm
 
-
 @staff_member_required
 def product_operation(request, operation):
     form = OperationProductForm(data=request.POST or None, operation=operation)
@@ -32,7 +31,11 @@ def product_operation(request, operation):
 @staff_member_required
 def product_report(request):
   form = ProductReportForm(data=request.POST or None)
-
+  if request.method == 'POST':
+    if form.is_valid():
+      form.generate_report()
+      message_string = "Laporan telah dibuat"
+      messages.success(request, message_string)
 
   context = {
     'form': form

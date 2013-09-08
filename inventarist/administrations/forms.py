@@ -1,8 +1,9 @@
 from django import forms
-from django.forms.extras.widgets import SelectDateWidget
 from django.contrib.admin import widgets
 
 from ajax_select.fields import AutoCompleteSelectField
+
+from .utils import generate_product_report
 
 
 class OperationProductForm(forms.Form):
@@ -38,5 +39,9 @@ class OperationProductForm(forms.Form):
         return product
 
 class ProductReportForm(forms.Form):
-    start_date = forms.DateField(widget=widgets.AdminDateWidget())
-    end_date = forms.DateField(widget=widgets.AdminDateWidget())
+    start_date = forms.DateField(widget=widgets.AdminDateWidget(), required=True)
+    end_date = forms.DateField(widget=widgets.AdminDateWidget(), required=True)
+
+
+    def generate_report(self):
+        generate_product_report(self.cleaned_data['start_date'], self.cleaned_data['end_date'])
